@@ -164,11 +164,24 @@
 
         .brand-name {
             font-family: 'Archivo Black', sans-serif;
-            font-size: 14px;
+            font-size: 18px;
             font-weight: 400;
+            letter-spacing: -.03em;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            gap: 0;
+        }
+
+        .brand-bk {
+            color: #F5D028;
+            font-size: 22px;
+            line-height: 1;
+            margin-top: -1px;
+        }
+
+        .brand-n {
             color: #EAE4D4;
-            letter-spacing: .04em;
-            text-transform: uppercase;
         }
 
         .brand-sub {
@@ -177,7 +190,7 @@
             font-weight: 400;
             letter-spacing: .14em;
             text-transform: uppercase;
-            margin-top: -1px;
+            margin-top: 2px;
             font-family: 'JetBrains Mono', monospace;
         }
 
@@ -1706,7 +1719,8 @@
                     </svg>
                 </div>
                 <div>
-                    <div class="brand-name">Noteloader</div>
+                    <div class="brand-name"><span class="brand-bk">[</span><span class="brand-n">Noteloader</span><span
+                            class="brand-bk">]</span></div>
                     <div class="brand-sub">Notas Online</div>
                 </div>
             </div>
@@ -1914,7 +1928,10 @@
                     </svg>
                 </button>
             </div>
-            <span id="brand-lbl">Bloco Brasil</span>
+            <span id="brand-lbl"
+                style="font-family:'Archivo Black',sans-serif;font-size:18px;letter-spacing:-.03em"><span
+                    style="color:#F5D028;font-size:22px">[</span><span>Noteloader</span><span
+                    style="color:#F5D028;font-size:22px">]</span></span>
         </div>
 
         <!-- TOOLBAR -->
