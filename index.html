@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rascunho — editor de notas online</title>
+  <title>Noteloader — editor de notas online</title>
   <meta name="description" content="Editor de notas online. 100% free, sem conta, sem coleta de dados.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,24 +45,27 @@
     }
     .t-logo{
       font-family:'Archivo Black',sans-serif;
-      font-size:13px;color:var(--paper);
-      letter-spacing:.1em;text-transform:uppercase;
-      display:flex;align-items:center;gap:10px;
+      font-size:22px;
+      display:flex;align-items:center;gap:6px;
+      line-height:1;
     }
+    .t-logo-bk{ color:var(--yellow); font-size:28px; line-height:1; margin-top:-2px; }
+    .t-logo-n{ color:var(--paper); letter-spacing:-.03em; }
     .dot{
       width:7px;height:7px;border-radius:50%;
-      background:var(--green-acid);box-shadow:0 0 8px var(--green-acid);
+      background:var(--green-acid);
+      box-shadow:0 0 8px var(--green-acid);
       animation:pulse 2s infinite;
     }
     @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
     .t-btn{
       display:inline-flex;align-items:center;gap:8px;
-      background:var(--green);color:var(--paper);
+      background:var(--ink);color:var(--yellow);
       font-family:'Archivo Black',sans-serif;
       font-size:11px;letter-spacing:.08em;text-transform:uppercase;
-      padding:8px 20px;transition:background .15s;
+      padding:8px 20px;transition:opacity .15s;
     }
-    .t-btn:hover{background:var(--green-mid)}
+    .t-btn:hover{opacity:.85}
     .t-btn svg{width:12px;height:12px}
 
     /* HERO */
@@ -359,7 +362,7 @@
   <nav class="topbar">
     <div class="t-logo">
       <span class="dot"></span>
-      Rascunho
+      <span class="t-logo-bk">[</span><span class="t-logo-n">Noteloader</span><span class="t-logo-bk">]</span>
     </div>
     <a href="/editor" class="t-btn">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -412,7 +415,7 @@
     <div class="fc">
       <span class="fc-icon">📋</span>
       <div class="fc-title">Templates prontos</div>
-      <p class="fc-desc">Ata de reunião, tarefas, estudo, briefing, daily e rascunho livre. Começa com estrutura, sem partir do zero.</p>
+      <p class="fc-desc">Ata de reunião, tarefas, estudo, briefing, daily e noteloader livre. Começa com estrutura, sem partir do zero.</p>
       <span class="fc-tag">6 modelos</span>
     </div>
     <div class="fc">
@@ -473,7 +476,7 @@
           <div class="mk-d" style="background:#ff5f57"></div>
           <div class="mk-d" style="background:#ffbd2e"></div>
           <div class="mk-d" style="background:#28c840"></div>
-          <span class="mk-title">Rascunho</span>
+          <span class="mk-title">Noteloader</span>
         </div>
         <div class="mk-toolbar">
           <span class="mk-tool">B</span>
@@ -567,7 +570,7 @@
   </section>
 
   <footer>
-    <span>© 2025 Rascunho</span>
+    <span>© 2025 Noteloader</span>
     <a href="https://henriquetourinho.com.br" target="_blank" rel="noopener">by Henrique Tourinho</a>
   </footer>
 
