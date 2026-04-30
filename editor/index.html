@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noteloader — Notas Online</title>
+    <title>Escreva Online — Notas Online</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:ital,wght@0,300;0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@300;400;700&family=Lora:ital,wght@0,400;0,500;0,600;1,400&display=swap"
         rel="stylesheet">
@@ -1719,7 +1719,7 @@
                     </svg>
                 </div>
                 <div>
-                    <div class="brand-name"><span class="brand-bk">[</span><span class="brand-n">Noteloader</span><span
+                    <div class="brand-name"><span class="brand-bk">[</span><span class="brand-n">Escreva Online</span><span
                             class="brand-bk">]</span></div>
                     <div class="brand-sub">Notas Online</div>
                 </div>
@@ -1930,7 +1930,7 @@
             </div>
             <span id="brand-lbl"
                 style="font-family:'Archivo Black',sans-serif;font-size:18px;letter-spacing:-.03em"><span
-                    style="color:#F5D028;font-size:22px">[</span><span>Noteloader</span><span
+                    style="color:#F5D028;font-size:22px">[</span><span>Escreva Online</span><span
                     style="color:#F5D028;font-size:22px">]</span></span>
         </div>
 
@@ -2195,7 +2195,7 @@
                 </div>
                 <div class="tpl-card" onclick="applyTemplate('scratch')">
                     <div class="tc-icon">⚡</div>
-                    <div class="tc-name">Noteloader Rápido</div>
+                    <div class="tc-name">Escreva Online Rápido</div>
                     <div class="tc-desc">Espaço livre com título e data</div>
                 </div>
             </div>
@@ -2210,8 +2210,8 @@
             onclick="undoDelete()">Desfazer</button></div>
 
     <script>
-        const KEY = 'noteloaderV1';
-        const FKEY = 'noteloaderFolders';
+        const KEY = 'escrevaonlineV1';
+        const FKEY = 'escrevaonlineFolders';
         let notes = [], folders = [], active = null, saveT = null;
         let activeFolder = '';
         let activeTagFilter = '';
@@ -2258,9 +2258,7 @@
             else if (activeFolder) filtered = filtered.filter(n => n.folderId === activeFolder);
             if (activeTagFilter) filtered = filtered.filter(n => (n.tags || []).some(t => t.name === activeTagFilter));
 
-            // count display
             const total = notes.length;
-            const shown = filtered.length;
             const pinnedCount = notes.filter(n => n.pinned).length;
             let countHtml = `<span class="badge">${total}</span> nota${total !== 1 ? 's' : ''}`;
             if (pinnedCount) countHtml += ` · 📌 ${pinnedCount}`;
@@ -2272,7 +2270,6 @@
                 return;
             }
 
-            // Group by folder when showing all folders and no search
             if (!activeFolder && !q && !activeTagFilter) {
                 let html = '';
                 const pinnedNotes = filtered.filter(n => n.pinned);
@@ -2289,7 +2286,6 @@
           </div>`;
                 }
 
-                // group unpinned by folder
                 const folderMap = {};
                 unpinnedNotes.forEach(n => {
                     const key = n.folderId || '__none__';
@@ -2297,7 +2293,6 @@
                     folderMap[key].push(n);
                 });
 
-                // named folders first
                 folders.forEach(f => {
                     if (!folderMap[f.id] || !folderMap[f.id].length) return;
                     const ns = folderMap[f.id];
@@ -2312,7 +2307,6 @@
           </div>`;
                 });
 
-                // notes without folder
                 if (folderMap['__none__'] && folderMap['__none__'].length) {
                     const ns = folderMap['__none__'];
                     if (folders.length) {
@@ -2401,10 +2395,8 @@
                 document.getElementById('note-title').value = n.title || '';
                 document.getElementById('editor').innerHTML = n.content || '';
                 document.getElementById('sb-d').textContent = new Date(n.createdAt).toLocaleDateString('pt-BR');
-                // tags
                 document.getElementById('tag-row').style.display = 'flex';
                 renderTags();
-                // lock
                 applyLock(n);
                 setSave('ok', 'Salvo ✓'); updateCount(); autoResizeTitle(); renderList();
                 wrap.style.opacity = '0'; requestAnimationFrame(() => { wrap.style.transition = 'opacity .18s ease'; wrap.style.opacity = '1'; });
@@ -2461,20 +2453,17 @@
         function insertLink() { const u = prompt('URL do link:'); if (u) document.execCommand('createLink', false, u.startsWith('http') ? u : 'https://' + u); }
         function edKey(e) { if (e.key === 'Tab') { e.preventDefault(); document.execCommand('insertHTML', false, '&nbsp;&nbsp;&nbsp;&nbsp;'); } }
 
-        /* ===== CHECKLIST ===== */
         function insertChecklist() {
             const html = '<p><input type="checkbox"> Item 1</p><p><input type="checkbox"> Item 2</p><p><input type="checkbox"> Item 3</p>';
             document.execCommand('insertHTML', false, html);
             document.getElementById('editor').focus();
         }
 
-        /* ===== HIGHLIGHT ===== */
         function applyHighlight(color) {
             document.execCommand('hiliteColor', false, color);
             document.getElementById('editor').focus();
         }
 
-        /* ===== TIMESTAMP ===== */
         function insertTimestamp() {
             if (!active) return;
             const n = notes.find(x => x.id === active);
@@ -2485,7 +2474,6 @@
             showToast('Data/hora inserida', '⏱');
         }
 
-        /* ===== LOCK ===== */
         function toggleLock() {
             if (!active) return;
             const n = notes.find(x => x.id === active);
@@ -2510,7 +2498,6 @@
             }
         }
 
-        /* ===== TAGS ===== */
         const TAG_COLORS = ['', 'yellow', 'green', 'red'];
         let tagColorIdx = 0;
         function renderTags() {
@@ -2554,7 +2541,6 @@
             save(); renderTags();
         }
 
-        /* ===== TEMPLATES ===== */
         function showTpl() { document.getElementById('tpl-panel').classList.add('visible'); }
         function hideTpl() { document.getElementById('tpl-panel').classList.remove('visible'); }
         const TEMPLATES = {
@@ -2563,7 +2549,7 @@
             study: { title: 'Anotação de Estudo', content: `<h2>Tema: </h2><p><strong>Data:</strong> ${new Date().toLocaleDateString('pt-BR')} &nbsp;&nbsp; <strong>Fonte:</strong> </p><h3>Resumo</h3><p></p><h3>Conceitos-chave</h3><ul><li><strong></strong> — </li></ul><h3>Dúvidas</h3><ul><li></li></ul><blockquote>Revisão em: </blockquote>` },
             brief: { title: 'Briefing', content: `<h2>Briefing</h2><p><strong>Data:</strong> ${new Date().toLocaleDateString('pt-BR')}</p><h3>Objetivo</h3><p></p><h3>Escopo</h3><p></p><h3>Prazo</h3><p></p><h3>Entregáveis</h3><ul><li></li></ul><h3>Observações</h3><p></p>` },
             daily: { title: 'Daily — ' + new Date().toLocaleDateString('pt-BR'), content: `<h2>Daily — ${new Date().toLocaleDateString('pt-BR')}</h2><h3>✅ O que fiz ontem</h3><ul><li></li></ul><h3>🎯 O que farei hoje</h3><ul><li></li></ul><h3>🚧 Bloqueios</h3><ul><li></li></ul>` },
-            scratch: { title: 'Noteloader — ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), content: `<p><em style="color:var(--muted);font-size:12px">${new Date().toLocaleString('pt-BR')}</em></p><p></p>` },
+            scratch: { title: 'Escreva Online — ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }), content: `<p><em style="color:var(--muted);font-size:12px">${new Date().toLocaleString('pt-BR')}</em></p><p></p>` },
         };
         function applyTemplate(key) {
             hideTpl();
@@ -2584,7 +2570,6 @@
             save(); renderList(); updateCount(); showToast('Template aplicado', '📋');
         }
 
-        /* ===== GRID / REVIEW MODE ===== */
         function toggleGrid() {
             document.body.classList.toggle('grid-mode');
             const on = document.body.classList.contains('grid-mode');
@@ -2611,7 +2596,6 @@
             openNote(id);
         }
 
-        /* ===== SELECTION WORD COUNT ===== */
         document.addEventListener('mouseup', () => {
             const sel = window.getSelection();
             if (!sel || sel.isCollapsed) { document.getElementById('sel-count').style.display = 'none'; return; }
@@ -2627,7 +2611,6 @@
         });
         document.addEventListener('mousedown', () => { document.getElementById('sel-count').style.display = 'none'; });
 
-        /* HTML → Markdown */
         function htmlToMd(html) {
             const div = document.createElement('div'); div.innerHTML = html;
             function n2m(node) {
@@ -2787,7 +2770,6 @@ ${n.content || ''}
             if (e.key === '?' && !e.ctrlKey && !e.metaKey && !typing) { e.preventDefault(); showSc(); }
         });
 
-        /* ===== FOLDERS ===== */
         function createFolder() {
             const name = prompt('Nome da pasta:');
             if (!name || !name.trim()) return;
@@ -2810,7 +2792,6 @@ ${n.content || ''}
             showToast('Pasta removida', '📁');
         }
 
-        /* ===== MOVE NOTE TO FOLDER (from topbar) ===== */
         function moveNoteToFolder() {
             if (!active) return;
             const opts = ['(Sem pasta)', ...folders.map(f => f.name)];
@@ -2830,12 +2811,12 @@ ${n.content || ''}
         if (notes.length > 0) { openNote(notes[0].id); }
         else {
             notes.push({
-                id: uid(), title: '👋 Bem-vindo!', content: `<h2>Bem-vindo ao Noteloader!</h2>
+                id: uid(), title: '👋 Bem-vindo!', content: `<h2>Bem-vindo ao Escreva Online!</h2>
 <p>Seu espaço de notas com identidade brasileira. Tudo salvo automaticamente no navegador.</p>
 <h3>Novidades desta versão:</h3>
 <ul>
 <li><strong>🏷 Tags</strong> — adicione tags coloridas abaixo do título de cada nota</li>
-<li><strong>📋 Templates</strong> — ata de reunião, tarefas, estudo, briefing, daily e noteloader</li>
+<li><strong>📋 Templates</strong> — ata de reunião, tarefas, estudo, briefing, daily e escreva online</li>
 <li><strong>✅ Checklist</strong> — botão na toolbar para inserir lista com checkboxes</li>
 <li><strong>🔒 Bloquear nota</strong> — trave uma nota para não editar por acidente</li>
 <li><strong>⏱ Carimbo de tempo</strong> — <code>Ctrl+T</code> insere data e hora no cursor</li>
